@@ -17,13 +17,16 @@ const ToDoList = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setCounter(counter + 1);
-        setTask(prevState => {
-            return { ...prevState, id: counter}
-        });
-        setTasks([...tasks, task]);
+        setCounter(counter => counter + 1);
+    };
+
+    useEffect(() => {
+        if (counter > 0) {
+        const newTask = { ...task, id: counter };
+        setTasks([...tasks, newTask]);
         setTask(initialItem);
-    }
+        }
+    }, [counter]);
 
     const deleteItem = (id) => {
         let newTasks = tasks.filter((item, index) => {
@@ -33,7 +36,7 @@ const ToDoList = () => {
     }
 
     const handleCheckbox = (val, id) => {
-        tasks.map((element, index) => {
+        tasks.map((element) => {
             if (element.id === id) {
                 element.finished = val
             }
