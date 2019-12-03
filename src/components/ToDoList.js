@@ -19,10 +19,10 @@ const ToDoList = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setCounter(prevState => {return counter + 1});
+        setCounter(counter + 1);
         setTask(prevState => {
-            return { ...prevState, id: counter + 1}
-        })
+            return { ...prevState, id: counter}
+        });
         setTasks([...tasks, task]);
         setTask(initialItem);
     }
