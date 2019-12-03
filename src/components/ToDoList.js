@@ -3,7 +3,6 @@ import ListItem from './ToDoItem';
 
 const ToDoList = () => {
     let [counter, setCounter] = useState(0);
-    console.log('THIS IS MY COUNTER', counter);
     let initialItem = {
         id: counter,
         name: '',
@@ -15,7 +14,6 @@ const ToDoList = () => {
     useEffect(() => console.log('THE ARRAY OF TASKS', tasks), [tasks]);
 
     const [task, setTask] = useState(initialItem);
-    useEffect(() => console.log('THE CURRENT TASK', task), [task]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -36,11 +34,11 @@ const ToDoList = () => {
 
     const handleCheckbox = (val, id) => {
         tasks.map((element, index) => {
-            if (index === id) {
+            if (element.id === id) {
                 element.finished = val
             }
         })
-        console.log('UPDATED ARR', tasks)
+        console.log('UPDATED TASKS', tasks)
     }
 
     return (
