@@ -4,7 +4,7 @@ import ListItem from './ToDoItem';
 const ToDoList = () => {
     let [counter, setCounter] = useState(0);
     console.log('THIS IS MY COUNTER', counter);
-    let initialList = {
+    let initialItem = {
         id: counter,
         name: '',
         time: '',
@@ -14,7 +14,7 @@ const ToDoList = () => {
     const [tasks, setTasks] = useState([]);
     useEffect(() => console.log('THE ARRAY OF TASKS', tasks), [tasks]);
 
-    const [task, setTask] = useState(initialList);
+    const [task, setTask] = useState(initialItem);
     useEffect(() => console.log('THE CURRENT TASK', task), [task]);
 
     const handleSubmit = (e) => {
@@ -24,7 +24,7 @@ const ToDoList = () => {
             return { ...prevState, id: counter + 1}
         })
         setTasks([...tasks, task]);
-        setTask(initialList);
+        setTask(initialItem);
     }
 
     const deleteItem = (id) => {
