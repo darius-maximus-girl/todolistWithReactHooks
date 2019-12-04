@@ -1,7 +1,21 @@
-@import './styles/_checkbox';
-@import './styles/_list-item';
+@import "./styles/_variables";
+@import "./styles/_checkbox";
+@import "./styles/_list-item";
+@import "./styles/_popup";
+@import "./styles/_todolist";
 
 .App {
   text-align: center;
-  background-color: pink;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+button {
+  cursor: pointer;
 }

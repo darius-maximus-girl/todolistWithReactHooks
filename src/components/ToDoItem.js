@@ -4,18 +4,20 @@ import { withStyles } from '@material-ui/core/styles';
 
 const StyledButton = withStyles({
     root: {
-      background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-      borderRadius: 3,
-      border: 0,
-      color: 'white',
-      height: 48,
-      padding: '0 30px',
-      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        background: 'linear-gradient(45deg, #ee57fbb3 30%, #00adb5 90%)',
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 48,
+        padding: '0 30px',
+        boxShadow: '0 3px 5px 2px rgba(34, 40, 49, .5)',
+        width: '64px',
+        height: '40px',
     },
     label: {
-      textTransform: 'capitalize',
+        textTransform: 'capitalize',
     },
-  })(Button);
+})(Button);
 
 function ListItem(props) {
     const tasks = props.tasks;
@@ -23,14 +25,14 @@ function ListItem(props) {
 
     return tasks.map((element, index) => {
         console.log(element.finished)
-        return <li className={element.finished ? 'listitem greyscale' : 'lititem'} key={index}><span>{element.name}: {element.time}</span>
-            <StyledButton onClick={() => props.delete(index)}>delete</StyledButton>
+        return <li className="lititem" key={index}><span className={element.finished ? 'text crossed' : 'text'}>{element.name}: {element.time} {element.pmAm}</span>
+            <StyledButton className="lititem-btn" onClick={() => props.delete(index)}>delete</StyledButton>
             <label className="container">
                 <input type="checkbox" checked={element.finished}
                     onChange={() => {
                         setIsChecked(!isChecked);
                         props.checked(!element.finished, element.id)
-                        }}></input>
+                    }}></input>
                 <span className="checkmark">{isChecked}</span>
             </label>
         </li>

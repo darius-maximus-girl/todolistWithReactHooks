@@ -1,0 +1,33 @@
+.form-container {
+  background-color: #505050;
+  padding: 20px;
+  margin-bottom: 20px;
+
+  input,
+  select {
+    background-color: #413c3c;
+    border: none;
+    font-family: "Roboto";
+    height: 35px;
+    padding: 5px;
+    color: rgb(149, 240, 243);
+    font-weight: bold;
+    margin-bottom: 20px;
+
+    &::placeholder {
+      color: rgb(149, 240, 243);
+      font-weight: bold;
+    }
+  }
+
+  .task-input {
+    width: 80%;
+    max-width: 600px;
+    height: 40px;
+    padding: 15px;
+  }
+}
+
+.todolist-container {
+  padding: 0;
+}

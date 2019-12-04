@@ -2,20 +2,21 @@ import React, { useState, useEffect } from 'react';
 import ListItem from './ToDoItem';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import Popup from './Popup';
 
 const SubmitButton = withStyles({
     root: {
-        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        background: '#00adb5',
         borderRadius: 3,
         border: 0,
         color: 'white',
         height: 48,
         padding: '0 30px',
-        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-      },
-      label: {
+        boxShadow: '0 3px 5px 2px rgba(34, 40, 49, .5)',
+    },
+    label: {
         textTransform: 'capitalize',
-      },
+    },
 })(Button);
 
 const ToDoList = () => {
@@ -23,7 +24,8 @@ const ToDoList = () => {
     let initialItem = {
         id: counter,
         name: '',
-        time: '',
+        time: '00:00',
+        pmAm: 'a.m.',
         finished: false,
     }
 
@@ -32,16 +34,23 @@ const ToDoList = () => {
 
     const [task, setTask] = useState(initialItem);
 
+    const [popup, setPopup] = useState(false);
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        setCounter(counter => counter + 1);
+        if (task.name === '') {
+            console.log('popup');
+            setPopup(true);
+        } else {
+            setCounter(counter => counter + 1);
+        }
     };
 
     useEffect(() => {
         if (counter > 0) {
-        const newTask = { ...task, id: counter };
-        setTasks([...tasks, newTask]);
-        setTask(initialItem);
+            const newTask = { ...task, id: counter };
+            setTasks([...tasks, newTask]);
+            setTask(initialItem);
         }
     }, [counter]);
 
@@ -61,26 +70,47 @@ const ToDoList = () => {
         console.log('UPDATED TASKS', tasks)
     }
 
+    const handlePopup = (val) => {
+        setPopup(val);
+    }
+
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <input placeholder="Add a task" onChange={(e) => {
-                    let value = e.target.value;
-                    setTask(prevState => {
-                        return { ...prevState, name: value }
-                    })
-                }}
-                    value={task.name}></input>
+            <div className="form-container">
+                {popup && <Popup isActive={handlePopup}></Popup>}
+                <form onSubmit={handleSubmit}>
+                    <input className="task-input" placeholder="Add a task" onChange={(e) => {
+                        let value = e.target.value;
+                        setTask(prevState => {
+                            return { ...prevState, name: value }
+                        })
+                    }}
+                        value={task.name}></input>
 
-                <input placeholder="Add time" onChange={(e) => {
-                    let value = e.target.value;
-                    setTask(prevState => {
-                        return { ...prevState, time: value }
-                    })
-                }} value={task.time}></input>
-                <SubmitButton type="submit">Submit</SubmitButton>
-            </form>
-            <ListItem tasks={tasks} delete={deleteItem} checked={handleCheckbox} />
+                    <div>
+                        <input placeholder="Add time" id="time" type="time" min="00:00" max="12:59" onChange={(e) => {
+                            let value = e.target.value;
+                            setTask(prevState => {
+                                return { ...prevState, time: value }
+                            })
+                        }} value={task.time}></input>
+
+                        <select value={initialItem.pmAm} onChange={(e) => {
+                            let value = e.target.value;
+                            setTask(prevState => {
+                                return { ...prevState, pmAm: value }
+                            })
+                        }}>
+                            <option value="a.m.">a.m.</option>
+                            <option value="p.m.">p.m.</option>
+                        </select>
+                    </div>
+                    <SubmitButton type="submit">Submit</SubmitButton>
+                </form>
+            </div>
+            <ul className="todolist-container">
+                <ListItem tasks={tasks} delete={deleteItem} checked={handleCheckbox} />
+            </ul>
         </div>
     )
 }
