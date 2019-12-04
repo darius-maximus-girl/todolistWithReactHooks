@@ -95,7 +95,7 @@ const ToDoList = () => {
                             })
                         }} value={task.time}></input>
 
-                        <select value={initialItem.pmAm} onChange={(e) => {
+                        <select value={task.pmAm} onChange={(e) => {
                             let value = e.target.value;
                             setTask(prevState => {
                                 return { ...prevState, pmAm: value }
