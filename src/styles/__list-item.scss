@@ -1,3 +1,10 @@
 .greyscale {
-    filter: grayscale(100%);
+  filter: grayscale(100%);
+  span {
+    text-decoration-line: line-through;
+  }
+}
+
+.listitem {
+  background-color: rgb(250, 145, 163);
 }
